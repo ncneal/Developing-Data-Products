@@ -1,0 +1,23 @@
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+## Beaches of San Diego
+August 18, 2017
+
+```{r map, echo = F, }
+library('leaflet')
+
+beaches <- data.frame(
+            lat = c(32.795291, 32.830576, 32.858386, 32.928805, 32.947166),
+            lng = c(-117.256549, -117.281187, -117.256897, -117.260031, -117.264493),
+            labels = c('Pacific Beach', 'Windansea', 'La Jolla Shores', 'Torrey Pines', 'Del Mar')
+            )
+
+m <- leaflet(beaches) %>%
+    addTiles() %>%
+    addMarkers(lat=~lat, lng=~lng, popup =~labels)
+m
+```
+
