@@ -1,0 +1,13 @@
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+## Plotly Presentation
+date: 8/28/2017
+
+```{r echo = FALSE, message = FALSE }
+library(plotly)
+plot_ly(mtcars, x = ~cyl, y = ~gear, z = ~wt, type = 'heatmap') %>% layout(title = "MPG by Gears and Wt", yaxis = list(dtick = 1))
+```
+
