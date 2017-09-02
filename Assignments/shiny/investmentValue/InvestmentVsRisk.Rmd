@@ -1,6 +1,7 @@
 ---
-title: "Investment vs Risk"
-author: "Nick Neal"
+title: Investing Risk App
+author: Nick Neal
+date: 9/2/2017 
 output: ioslides_presentation
 ---
 
@@ -8,11 +9,9 @@ output: ioslides_presentation
 knitr::opts_chunk$set(echo = FALSE)
 ```
 
-## Why?
+## What is this app for?
 
 Many people don't understand the risk vs reward concept as applied to investing. They here 'risk' and immediately think they should avoid risk when it comes to money. But, over the long term, taking on more risk can be very lucrative, as this app demonstrates.
-
-## How?
 
 The app uses the average investment returns over all rolling 30-year averages since recorded history starting in 1928. 
 
