@@ -1,0 +1,12 @@
+name: investment_value_vs_risk
+title: Investment Value vs Risk
+username:
+account: ncneal
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 209982
+bundleId: 964160
+url: https://ncneal.shinyapps.io/investment_value_vs_risk/
+when: 1504301352.15154
+asMultiple: FALSE
+asStatic: FALSE

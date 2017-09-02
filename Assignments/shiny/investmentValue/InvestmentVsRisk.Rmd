@@ -1,0 +1,108 @@
+---
+title: "Investment vs Risk"
+author: "Nick Neal"
+output: ioslides_presentation
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+## Why?
+
+Many people don't understand the risk vs reward concept as applied to investing. They here 'risk' and immediately think they should avoid risk when it comes to money. But, over the long term, taking on more risk can be very lucrative, as this app demonstrates.
+
+## How?
+
+The app uses the average investment returns over all rolling 30-year averages since recorded history starting in 1928. 
+
+Here are the indexes used for each investment vehicle:
+
+ - Stocks: S&P 500 Index
+ - Bonds: 10-yr United States Treasury Bond
+ - Savings: 3-month United States Treasury Bill
+
+## But...
+
+One argument for those that are risk adverse is that some periods have recessions, economic decline, wars, etc. So, you can't just take the average of all the 30-year periods. There must be 30-yr periods that were lower, and conversely, higher, than the average. What if I invest over a 30-yr period that ends up being one of the 'bad' 30-yr periods? Well, let's see how much worse or better those 30 year periods are compared to the average.
+
+Here's the returns for the 30-year min, max and averages for each (percentages expresed as a decimal):
+
+```{r echo = FALSE, comment = ''}
+    returnVars <- data.frame(c(.10, .12, .15),
+                             c(.02, .07, .09),
+                             c(.01, .04, .05))
+    
+    colnames(returnVars) <- c('Stocks', 'Bonds', 'Savings')
+    rownames(returnVars) <- c('Worst', 'Avg', 'Best')
+    returnVars
+```
+
+## So...
+
+Now that we know that over a 30-year period, we're not going to lose all of our money and that each investment vehicle returns a fairly stable return, lets see how risk impacts returns. The top lines is high risk (risk level 10), middle line is mid risk (risk level 5), bottom line is low risk (risk level 0). 
+
+```{r echo = FALSE}
+    riskInput = 0
+    
+    currStart <- 10000
+    
+    returnVars <- data.frame(c(.10, .12, .15),
+                             c(.02, .07, .09),
+                             c(.01, .04, .05))
+    
+    colnames(returnVars) <- c('stock', 'bond', 'saving')
+    rownames(returnVars) <- c('low', 'mid', 'high')
+    
+    investmentMix <- data.frame(c(0,1,2,3,4,5,6,7,8,9,10),
+                                c(0,0,0,0.05,0.2,0.35,0.4,0.55,0.7,0.85,1),
+                                c(0,0.15,0.3,0.4,0.4,0.3,0.4,0.4,0.3,0.15,0),
+                                c(1,0.85,0.7,0.55,0.4,0.35,0.2,0.05,0,0,0))
+    
+    names(investmentMix) <- c('Risk','Stock','Bond','Savings')
+    
+    
+    dfTest <- data.frame(matrix(ncol = 3, nrow = 0))
+    
+    for (i in 1:30) {
+        dfTest <- rbind(dfTest, (1+returnVars[2,])^i)
+    }
+    
+    mixAmounts <- subset(investmentMix, Risk == riskInput)
+    
+    mixAmounts <- currStart * mixAmounts[,2:4]
+    histValues <- data.frame(mapply(`*`,dfTest,mixAmounts))
+    
+    low_risk_totals <- rowSums(histValues)
+    
+    riskInput = 5
+    
+    mixAmounts <- subset(investmentMix, Risk == riskInput)
+    
+    mixAmounts <- currStart * mixAmounts[,2:4]
+    histValues <- data.frame(mapply(`*`,dfTest,mixAmounts))
+    
+    mid_risk_totals <- rowSums(histValues)
+    
+    riskInput = 10
+    
+    mixAmounts <- subset(investmentMix, Risk == riskInput)
+    
+    mixAmounts <- currStart * mixAmounts[,2:4]
+    histValues <- data.frame(mapply(`*`,dfTest,mixAmounts))
+    
+    high_risk_totals <- rowSums(histValues)
+        
+    plot(high_risk_totals, type = 'l', xlab = 'years', ylab = 'Investment Value', main = 'Investment Value over 30 Years')
+    lines(low_risk_totals)
+    lines(mid_risk_totals)
+    
+    
+   
+```
+
+## Conclusion
+
+So, as you can see, when investing long-term, taking on more risk con be very lucrative. There are other things to consider, but in general, risk is not a bad thing. I hope this app demonstrates the conecpt of risk vs reward in investing.
+
+### Thanks!
